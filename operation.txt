@@ -1,0 +1,8 @@
+# ƒuƒ‰ƒEƒU(IE)‚Å–¼ŒÃ‰®‚ğŒŸõ‚·‚é
+OpenURL "C:\Program Files\internet explorer\iexplore.exe" "https://www.google.co.jp/"
+WaitSec 1
+MoveWindow "Google - Internet Explorer" 0 0 1369 735
+WaitSec 1
+SendString "–¼ŒÃ‰®"
+WaitSec 1
+SendKey "{ENTER}"
