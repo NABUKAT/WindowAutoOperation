@@ -60,19 +60,17 @@ public class GUIOperation {
     // マウス関連のWin32API
     [DllImport("User32.dll")]
     static extern bool GetCursorPos(out POINT lppoint);
+    [DllImport("User32.dll")]
+    static extern bool SetCursorPos(int x, int y);
     [StructLayout(LayoutKind.Sequential)]
     struct POINT
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X;
+        public int Y;
     }
 
     [DllImport("user32.dll")]
-    extern static uint SendInput(
-        uint       nInputs,   // INPUT 構造体の数(イベント数)
-        INPUT[]    pInputs,   // INPUT 構造体
-        int        cbSize     // INPUT 構造体のサイズ
-    );
+    extern static uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
     [StructLayout(LayoutKind.Sequential)]
     struct INPUT
     { 
@@ -124,15 +122,10 @@ public class GUIOperation {
     // 指定した座標を左クリックするメソッド
     public static void LeftClick(int x, int y) {
         INPUT[] input = new INPUT[3];
-        // MOUSEEVENTF_ABSOLUTEの場合、画面サイズは 65535 で考えるので
-        // 自分の解像度に合わせて修正すること(この場合 1024*768)
-        // マウスに対する一連の動作の配列。1回目は移動。2回目は左ボタン押下。3回目は左ボタン開放。
-        input[0].mi.dx = x * (65535 / 1024);
-        input[0].mi.dy = y * (65535 / 768);
-        input[0].mi.dwFlags = MOUSEEVENTF_MOVED | MOUSEEVENTF_ABSOLUTE;
-        input[1].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-        input[2].mi.dwFlags = MOUSEEVENTF_LEFTUP;
-        SendInput(3, input, Marshal.SizeOf(input[0]));
+        SetCursorPos(x, y);
+        input[0].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+        input[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
+        SendInput(2, input, Marshal.SizeOf(input[0]));
     }
 
     // マウスの座標を取得するメソッド
