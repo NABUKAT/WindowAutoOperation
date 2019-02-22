@@ -35,6 +35,13 @@ SendKey "{ENTER}"
 OpenURL [ブラウザのパス] [URL]
 OpenURL "C:\Program Files\internet explorer\iexplore.exe" "https://www.google.co.jp/"
 ```
+* **RunApp**  
+指定アプリケーションを起動する。  
+```
+RunApp [アプリケーションのパス]
+RunApp "C:\Program Files\internet explorer\iexplore.exe"
+RunApp "notepad"
+```
 * **WaitSec**  
 指定時間(秒)待つ。  
 ```

@@ -11,6 +11,10 @@ function OpenURL($browserpath, $url){
 }
 #OpenURL "C:\Program Files\internet explorer\iexplore.exe" "https://www.google.co.jp/"
 
+function RunApp($path){
+    start $path
+}
+
 function WaitSec($sec){
     Start-Sleep -s $sec
 }
